@@ -8,6 +8,8 @@ public class Main {
     public static void main(String[] args) {
         Scanner tastiera = new Scanner(System.in);
         final int MAXLIBRI = 2;
+        int contaLibri = 0;
+        Libro libro = new Libro();
         Libro[] mensola = new Libro[MAXLIBRI];
         String[] opzioni = {"Menu", "1-Inserimento", "2-Visualizza", "3-Uscita"};
         boolean esci = true;
@@ -17,15 +19,16 @@ public class Main {
                     for (int i = 0; i < MAXLIBRI; i++) {
                         System.out.println("Inserisci i dettagli del libro #" + (i + 1) + ":");
                         System.out.println("Inserisci autore:");
-                        String autore = tastiera.nextLine();
+                        libro.autore = tastiera.nextLine();
                         System.out.println("Inserisci titolo:");
-                        String titolo = tastiera.nextLine();
+                        libro.titolo = tastiera.nextLine();
 
                         // Verifica se il libro esiste già
-                        if (ricerca(MAXLIBRI, mensola, autore, titolo)) {
-                            System.out.println("Il libro con autore '" + autore + "' e titolo '" + titolo + "' è già presente. Inserimento non consentito.");
+                        if (ricerca(contaLibri, mensola,libro)) {
+                            System.out.println("Il libro con autore " + libro.autore + " e titolo " + libro.titolo + " è già presente. Inserimento non consentito.");
                         } else {
-                            mensola[i] = FrontEnd.LeggiLibro(tastiera, autore, titolo); // Passo autore e titolo per evitare rileggere
+                            mensola[i] = FrontEnd.LeggiLibro(tastiera, libro.autore, libro.titolo); // Passo autore e titolo per evitare di rileggere
+                            contaLibri++;
                         }
                     }
                 }
@@ -43,15 +46,14 @@ public class Main {
 
     public static void visualizza(Libro[] mensola) {
         for (Libro libro : mensola) {
-            if (libro != null) {
+            if(libro != null)
                 System.out.println(libro.FormattaDati());
-            }
         }
     }
 
-    public static boolean ricerca(int MAXLIBRI, Libro[] mensola, String autore, String titolo) {
-        for (int i = 0; i < MAXLIBRI; i++) {
-            if (mensola[i] != null && autore.equals(mensola[i].autore) && titolo.equals(mensola[i].titolo)) {
+    public static boolean ricerca(int contaLibri, Libro[] mensola,Libro libro) {
+        for (int i = 0; i < contaLibri; i++) {
+            if (mensola[i]!= null && libro.autore.equals(mensola[i].autore) && libro.titolo.equals(mensola[i].titolo)) {
                 return true; // Libro trovato
             }
         }
