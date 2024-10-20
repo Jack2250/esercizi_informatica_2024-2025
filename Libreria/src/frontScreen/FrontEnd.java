@@ -4,7 +4,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
-import Mensola.*;
+import Mensola.Libro;
+import Mensola.Genere;
 // import utility.Tools;
 
 import static utility.Tools.*;
