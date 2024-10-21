@@ -9,24 +9,24 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner tastiera = new Scanner(System.in);
-        final int MAXLIBRI = 1;
+        final int MAXLIBRI = 2;
         int contaLibri = 0;
         Libro[] mensola = new Libro[MAXLIBRI];
-        String[] opzioni = {"Menu", "1-Inserimento", "2-Visualizza", "3-Rimuovi Libro", "4-Cerca Libro", "5-Modifica Data di Pubblicazione", "6-Uscita"};
+        String[] opzioni = {"Menu", "1-Inserimento", "2-Visualizza", "3-Rimuovi Libro", "4-Cerca Libro", "5-Modifica Data di Pubblicazione", "6-Ricerca per titolo","7-Uscita"};
         boolean esci = true;
 
         do {
             switch (Menu(opzioni, tastiera)) {
                 case 1 -> {
                     if (contaLibri < MAXLIBRI) {
-                        System.out.println("Inserisci i dettagli del libro #:");
+                        System.out.println("Inserisci i dettagli del libro :");
 
                         System.out.println("Inserisci autore:");
                         String autore = tastiera.nextLine();
                         System.out.println("Inserisci titolo:");
                         String titolo = tastiera.nextLine();
 
-                        // Verifica se il libro esiste già
+                        // Verifica se il libro esiste già-
                         if (ricerca(mensola, contaLibri, autore, titolo) != null) {
                             System.out.println("Il libro con autore " + autore + " e titolo " + titolo + " è già presente. Inserimento non consentito.");
                         } else {
@@ -80,7 +80,20 @@ public class Main {
                         System.out.println("Libro non trovato.");
                     }
                 }
-                case 6 -> {
+                case 6->{
+                    try {
+                        System.out.println("Inserisci titolo:");
+                        String titolo = tastiera.nextLine();
+                        int i = finIndex(mensola, contaLibri, titolo);
+                        if(i>=0) {
+                            System.out.println(mensola[i].FormattaDati());
+                        }
+                    } catch (Exception e) {
+                        System.out.println("Libro non trovato");
+                        System.out.println(e.getMessage());
+                    }
+                }
+                case 7 -> {
                     System.out.println("Fine");
                     esci = false;
                 }
@@ -104,7 +117,16 @@ public class Main {
                 return mensola[i]; // Libro trovato
             }
         }
-        return null; // Libro non trovato
+        return null;
+    }
+
+    public static int finIndex(Libro[] mensola, int contaLibri, String titolo) throws Exception {
+        for (int i = 0; i < contaLibri; i++) {
+            if (mensola[i] != null &&  mensola[i].titolo.equals(titolo)) {
+                return i; // Libro trovato
+            }
+        }
+        throw new Exception();
     }
 
     // Rimuovi un libro e compatta l'array
