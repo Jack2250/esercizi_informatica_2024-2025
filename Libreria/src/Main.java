@@ -9,10 +9,10 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner tastiera = new Scanner(System.in);
-        final int MAXLIBRI = 2;
+        final int MAXLIBRI = 3;
         int contaLibri = 0;
         Libro[] mensola = new Libro[MAXLIBRI];
-        String[] opzioni = {"Menu", "1-Inserimento", "2-Visualizza", "3-Rimuovi Libro", "4-Cerca Libro", "5-Modifica Data di Pubblicazione", "6-Ricerca per titolo","7-Uscita"};
+        String[] opzioni = {"Menu", "1-Inserimento", "2-Visualizza", "3-Rimuovi Libro", "4-Cerca Libro", "5-Modifica Data di Pubblicazione", "6-Ricerca per titolo","7-Ricerca autore","8-Rimuovi libri di un certo autore","9-uscita"};
         boolean esci = true;
 
         do {
@@ -84,7 +84,7 @@ public class Main {
                     try {
                         System.out.println("Inserisci titolo:");
                         String titolo = tastiera.nextLine();
-                        int i = finIndex(mensola, contaLibri, titolo);
+                        int i = findIndex(mensola, contaLibri, titolo);
                         if(i>=0) {
                             System.out.println(mensola[i].FormattaDati());
                         }
@@ -93,7 +93,32 @@ public class Main {
                         System.out.println(e.getMessage());
                     }
                 }
-                case 7 -> {
+
+                case 7-> {
+                    try{
+                        System.out.println("Inserisci autore");
+                        String autore = tastiera.nextLine();
+                        System.out.println(findAll(mensola,contaLibri,autore));
+
+                    }catch(Exception e){
+                        System.out.println("Libri non trovati");
+                    }
+
+                }
+
+                case 8->{
+                    System.out.println("Inserisci autore del libro da rimuovere:");
+                    String autore = tastiera.nextLine();
+                    System.out.println("Mensola con i libri eliminati");
+                    Libro[] nuovaMensola = removeAll(mensola,contaLibri, autore);
+
+                    for (Libro libro: nuovaMensola) {
+                        if(libro!= null){
+                            System.out.println(libro.FormattaDati());
+                        }
+                    }
+                }
+                case 9 -> {
                     System.out.println("Fine");
                     esci = false;
                 }
@@ -120,7 +145,7 @@ public class Main {
         return null;
     }
 
-    public static int finIndex(Libro[] mensola, int contaLibri, String titolo) throws Exception {
+    public static int findIndex(Libro[] mensola, int contaLibri, String titolo) throws Exception {
         for (int i = 0; i < contaLibri; i++) {
             if (mensola[i] != null &&  mensola[i].titolo.equals(titolo)) {
                 return i; // Libro trovato
@@ -150,5 +175,33 @@ public class Main {
     public static void modificaDataPubblicazione(Libro libro, String nuovaData) {
         libro.dataDiPubblicazione = LocalDate.parse(nuovaData, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         System.out.println("Formato data non valido.");
+    }
+
+    public static Libro [] findAll (Libro[] mensola, int contaLibri, String autore) throws Exception{
+        Libro [] libriAutore = new Libro[contaLibri];
+        for (int i = 0; i < contaLibri; i++) {
+            if (mensola[i] != null && mensola[i].autore.equals(autore)) {
+                libriAutore[i] = mensola[i];
+                contaLibri++;
+            }
+        }
+        if(contaLibri>0){
+            return libriAutore;
+        }
+        throw new Exception();
+    }
+
+    public static Libro [] removeAll(Libro[] mensola, int contaLibri, String autore) {
+        Libro nuovaMensola = new Libro();
+        for (int i = 0; i < contaLibri; i++) {
+            if (mensola[i] != null && mensola[i].autore.equals(autore)) {
+                // Compattazione dell'array
+                for (int j = i; j < contaLibri - 1; j++) {
+                    mensola[j] = mensola[j + 1];
+                }
+                mensola[contaLibri - 1] = null; // Libera l'ultimo posto
+            }
+        }
+        return mensola;
     }
 }
