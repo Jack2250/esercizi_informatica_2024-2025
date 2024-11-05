@@ -1,88 +1,62 @@
-import persona.Biglietto;
-import frontScreen.FrontEnd;
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.Scanner;
 
 import static utility.Tools.*;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Scanner;
-
 public class Main {
     public static void main(String[] args) {
-        Scanner tastiera = new Scanner(System.in);
-        final int MAXPERSONE = 10;
-        ArrayList<Biglietto> LunaPark = new ArrayList<>();
-        String[] opzioni = {"Menu", "Entrata", "Prova Giostra", "Uscita", "Esci"};
+        Scanner sc = new Scanner(System.in);
+        int nBiglietto = 1;
+        final int MAXPERSONE = 3;
         boolean esci = true;
-
+        ArrayList<Persona> gestore = new ArrayList<>();
+        String[] opzioni = {"GESTORE LUNAPARK", "Registra entrata", "Registra uscita", "Nuova giostra"};
         do {
-            switch (Menu(opzioni, tastiera)) {
-                case 1 -> {
-                    if (LunaPark.size() < MAXPERSONE) {
-                        Biglietto biglietto = FrontEnd.leggiBiglietto(tastiera);
-                        LunaPark.add(biglietto);
-
-                        biglietto.dataAccesso = LocalDateTime.now();
-                        System.out.println("Biglietto creato: " + biglietto.formattadati());
-                    } else {
-                        System.out.println("Il luna park è pieno.");
-                    }
-                }
-                case 2 -> {
-                    if (!LunaPark.isEmpty()) {
-                        System.out.println("Inserisci il numero del biglietto:");
-                        int numeroBiglietto = Integer.parseInt(tastiera.nextLine());
-                        Biglietto biglietto = null;
-
-                        for (Biglietto b : LunaPark) {
-                            if (b.numero == numeroBiglietto) {
-                                biglietto = b;
-                                break; // Esci dal ciclo una volta trovato
-                            }
-                        }
-
-                        if (biglietto != null) {
-                            // Stampa della giostra selezionata e della data di accesso
-                            System.out.println("Hai provato la giostra: " + biglietto.tipo);
-                            System.out.println("Data e ora di accesso: " + biglietto.dataAccesso);
-
+            try {
+                switch (Menu(opzioni, sc)) {
+                    case 1 -> {
+                        if (gestore.size() < MAXPERSONE) {
+                            registraEntrata(nBiglietto);
+                            nBiglietto++;
                         } else {
-                            System.out.println("Biglietto non trovato.");
+                            throw new Exception("Il luna park è pieno");
                         }
-                    } else {
-                        System.out.println("Il luna park è vuoto.");
+
+                    }
+                    case 2 -> {
+
+                    }
+                    case 3 -> {
+
+                    }
+                    case 4 -> {
+                        esci = false;
                     }
                 }
-                case 3 -> {
-                    if (!LunaPark.isEmpty()) {
-                        System.out.println("Inserisci il numero del biglietto per l'uscita:");
-                        int numeroBiglietto = Integer.parseInt(tastiera.nextLine());
-                        Biglietto bigliettoUscita = null;
-
-
-                        for (Biglietto b : LunaPark) {
-                            if (b.numero == numeroBiglietto) {
-                                bigliettoUscita = b;
-                                break; // Esci dal ciclo una volta trovato
-                            }
-                        }
-
-                        if (bigliettoUscita != null) {
-                            LunaPark.remove(bigliettoUscita);
-                            System.out.println("Uscita avvenuta con successo per il biglietto numero: " + numeroBiglietto);
-                        } else {
-                            System.out.println("Biglietto non trovato.");
-                        }
-                    } else {
-                        System.out.println("Nessuna persona nel luna park.");
-                    }
-                }
-                case 4 -> {
-                    System.out.println("Uscita");
-                    esci = false;
-                }
-
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
+
+
         } while (esci);
+    }
+
+    public static Persona registraEntrata(int nBiglietto,) {
+        Persona cliente = new Persona();
+        Random rn = new Random();
+
+        cliente.biglietto = nBiglietto;
+        switch (rn.nextInt(0, 4)) {
+            case 1 -> cliente.giostreUsate = giostre.RUOTAPANORAMICA;
+
+            case 2 -> cliente.giostreUsate = giostre.AUTOSCONTRO;
+
+            case 3 -> cliente.giostreUsate = giostre.OTTOVOLANTE;
+
+            case 4 -> cliente.giostreUsate = giostre.TAGADA;
+
+        }
+        return cliente;
     }
 }
