@@ -1,3 +1,6 @@
+import com.sun.jdi.event.ExceptionEvent;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -7,56 +10,80 @@ import static utility.Tools.*;
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int nBiglietto = 1;
-        final int MAXPERSONE = 3;
+        int nBiglietto = 0;
+        int nPersone = 0;
+        final int MAXPERSONE = 10;
         boolean esci = true;
-        ArrayList<Persona> gestore = new ArrayList<>();
-        String[] opzioni = {"GESTORE LUNAPARK", "Registra entrata", "Registra uscita", "Nuova giostra"};
+        ArrayList<Persona> lista = new ArrayList<>();
+        String[] opzioni = {"GESTORE LUNAPARK", "Registra entrata", "Nuova giostra", "Lista giostre per biglietto", "Registra uscita", "Esci"};
         do {
-            try {
-                switch (Menu(opzioni, sc)) {
-                    case 1 -> {
-                        if (gestore.size() < MAXPERSONE) {
-                            registraEntrata(nBiglietto);
-                            nBiglietto++;
-                        } else {
-                            throw new Exception("Il luna park è pieno");
-                        }
 
-                    }
-                    case 2 -> {
+            switch (Menu(opzioni, sc)) {
+                case 1 -> { //ingresso
+                    try {
+                        if (nPersone > MAXPERSONE)
+                            throw new Exception();
 
-                    }
-                    case 3 -> {
+                        nPersone++;
+                        Persona p = metodoCreazioneBiglietto(++nBiglietto);
+                        lista.add(p);
+                        System.out.println("Numero assegnato al cliente: " + nBiglietto);
 
-                    }
-                    case 4 -> {
-                        esci = false;
+                    } catch (Exception e) {
+                        System.out.println("Il luna park è pieno");
                     }
                 }
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
+                case 2 -> { //Nuova giostra
+                    System.out.println("Numero biglietto cliente: ");
+                    int numeroB = Integer.parseInt(sc.nextLine());
+                    if (metodoTrovaBiglietto(numeroB, lista)) {
+                        Persona p = metodoNuovaGiostra(nBiglietto, sc);
+                        lista.add(p);
+                    } else {
+                        System.out.println("Biglietto non trovato");
+                    }
 
+                }
+                case 3 -> {
+
+                }
+                case 4 -> {
+                    esci = false;
+                }
+                case 5 -> {
+
+                }
+            }
 
         } while (esci);
     }
 
-    public static Persona registraEntrata(int nBiglietto,) {
+    public static Persona metodoCreazioneBiglietto(int nBiglietto) {
         Persona cliente = new Persona();
-        Random rn = new Random();
 
-        cliente.biglietto = nBiglietto;
-        switch (rn.nextInt(0, 4)) {
-            case 1 -> cliente.giostreUsate = giostre.RUOTAPANORAMICA;
+        cliente.numeroBiglietto = nBiglietto;
+        cliente.momentoEvento = LocalDateTime.now(); //momento ingresso
 
-            case 2 -> cliente.giostreUsate = giostre.AUTOSCONTRO;
+        return cliente;
+    }
 
-            case 3 -> cliente.giostreUsate = giostre.OTTOVOLANTE;
+    public static Persona metodoNuovaGiostra(int nBiglietto, Scanner sc) {
+        Persona cliente = new Persona();
+        boolean esci;
+        do {
+            try {
+                System.out.println("Quale giostra vuoi provare? {RUOTAPANORAMICA, AUTOSCONTRO, OTTOVOLANTE, TAGADA}");
+                cliente.giostreProvate = ListaGiostre.valueOf(sc.nextLine().toUpperCase());
+                esci = true;
+            } catch (Exception e) {
+                System.out.println("Giostra non valida");
+                esci = false;
+            }
+        } while (!esci);
 
-            case 4 -> cliente.giostreUsate = giostre.TAGADA;
+        cliente.numeroBiglietto = nBiglietto;
+        cliente.momentoEvento = LocalDateTime.now(); //momento nuova giostra
 
-        }
         return cliente;
     }
 }
