@@ -1,5 +1,7 @@
 public class Main {
     public static void main(String[] args) {
+        //Esempi prima della gestione delle eccezioni
+        /*
 
         Punto punto1 = new Punto();
 
@@ -32,5 +34,13 @@ public class Main {
 
         /*Punto punto3 = new Punto(3,2);
         System.out.println(punto2.toString());*/
+
+
+        try {
+            Punto punto = new Punto(20, 10);
+            System.out.println(punto.toString());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
