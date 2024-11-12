@@ -2,7 +2,7 @@ public class Punto {
     private int x;
     private int y;
 
-    public Punto() { //Costruttore
+    public Punto() {
         this.x = 10;
         this.y = 10;
     }
@@ -11,9 +11,13 @@ public class Punto {
         this.x = x;
         this.y = y;
     }*/
-    public Punto(int x, int y) throws Exception {
+    public Punto(int x, int y){
         setX(x);
         setY(y);
+    }
+    
+    public Punto (int x){
+        this(x,10);
     }
 
     public int getX() {
