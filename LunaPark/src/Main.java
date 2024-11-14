@@ -1,8 +1,5 @@
-import com.sun.jdi.event.ExceptionEvent;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.Scanner;
 
 import static utility.Tools.*;
@@ -14,7 +11,7 @@ public class Main {
         int nPersone = 0;
         final int MAXPERSONE = 10;
         boolean esci = true;
-        ArrayList<Persona> lista = new ArrayList<>();
+        ArrayList<Biglietto> lista = new ArrayList<>();
         String[] opzioni = {"GESTORE LUNAPARK", "Registra entrata", "Nuova giostra", "Lista giostre per biglietto", "Registra uscita", "Esci"};
         do {
 
@@ -24,8 +21,8 @@ public class Main {
                         if (nPersone > MAXPERSONE)
                             throw new Exception();
 
-                        nPersone++;
-                        Persona p = metodoCreazioneBiglietto(++nBiglietto);
+                        nPersone++; //Bisognerà fare anche nPersona--
+                        Biglietto p = metodoCreazioneBiglietto(++nBiglietto);
                         lista.add(p);
                         System.out.println("Numero assegnato al cliente: " + nBiglietto);
 
@@ -37,7 +34,7 @@ public class Main {
                     System.out.println("Numero biglietto cliente: ");
                     int numeroB = Integer.parseInt(sc.nextLine());
                     if (metodoTrovaBiglietto(numeroB, lista)) {
-                        Persona p = metodoNuovaGiostra(nBiglietto, sc);
+                        Biglietto p = metodoNuovaGiostra(nBiglietto, sc);
                         lista.add(p);
                     } else {
                         System.out.println("Biglietto non trovato");
@@ -48,27 +45,25 @@ public class Main {
 
                 }
                 case 4 -> {
-                    esci = false;
-                }
-                case 5 -> {
 
                 }
+                case 5 -> esci = false;
             }
 
         } while (esci);
     }
 
-    public static Persona metodoCreazioneBiglietto(int nBiglietto) {
-        Persona cliente = new Persona();
+    public static Biglietto metodoCreazioneBiglietto(int nBiglietto) {
+        Biglietto cliente = new Biglietto();
 
         cliente.numeroBiglietto = nBiglietto;
-        cliente.momentoEvento = LocalDateTime.now(); //momento ingresso
+        cliente.momentoEvento = LocalDateTime.now(); //momento dell'ingresso
 
         return cliente;
     }
 
-    public static Persona metodoNuovaGiostra(int nBiglietto, Scanner sc) {
-        Persona cliente = new Persona();
+    public static Biglietto metodoNuovaGiostra(int nBiglietto, Scanner sc) {
+        Biglietto cliente = new Biglietto();
         boolean esci;
         do {
             try {
