@@ -13,6 +13,10 @@ public class Auto {
         return cilindrata;
     }
 
+    public Pilota getPilota() {
+        return pilota;
+    }
+
     @Override
     public String toString() {
         return "Scuderia:  " + scuderia + "  Pilota:  " + pilota + "  Cilindrata:  " + cilindrata;
