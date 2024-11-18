@@ -11,7 +11,7 @@ public class Main {
         Scanner tastiera = new Scanner(System.in);
         final int MAXLIBRI = 3;
         ArrayList<Libro> mensola = new ArrayList<>();
-        String[] opzioni = {"Menu", "Inserimento", "Visualizza", "Rimuovi Libro", "Modifica numero di pagine", "Visualizza libro per prezzo", "Uscita"};
+        String[] opzioni = {"Menu", "Inserimento", "Visualizza", "Rimuovi Libro", "Modifica numero di pagine", "Visualizza Precedenti", "Visualizza successivi", "Uscita"};
         boolean esci = true;
 
         do {
@@ -68,11 +68,40 @@ public class Main {
                 }
 
                 case 5 -> {
-                    System.out.println("Inserisci il prezzo del libro :");
-                    double prezzo = Double.parseDouble(tastiera.nextLine());
+                    if (!(mensola.isEmpty())) {
+                        System.out.println("Inserisci l'indice da cui stampare i libri");
+                        int index = Integer.parseInt(tastiera.nextLine());
+
+                        if (index < mensola.size() && index >= 0) {
+                            visualizzaLibriPrecedenti(mensola, index);
+                        } else {
+                            System.out.println("L'indice è uguale o più grande della dimensione della mensola");
+                        }
+
+                    } else {
+
+                        System.out.println("La mensola è vuota");
+                    }
 
                 }
                 case 6 -> {
+                    if (!(mensola.isEmpty())) {
+                        System.out.println("Inserisci l'indice da cui stampare i libri");
+                        int index = Integer.parseInt(tastiera.nextLine());
+
+                        if (index < mensola.size() && index >= 0) {
+                            visualizzaLibriSuccessivi(mensola, index);
+                        } else {
+                            System.out.println("L'indice è uguale o più grande della dimensione della mensola");
+                        }
+
+                    } else {
+
+                        System.out.println("La mensola è vuota");
+                    }
+
+                }
+                case 7 -> {
                     System.out.println("Fine");
                     esci = false;
                 }
@@ -91,21 +120,24 @@ public class Main {
     }
 
     public static boolean modificaNumeroDiPagine(ArrayList<Libro> mensola, String autore, String titolo, Scanner sc) {
-        for (int i = 0; i < mensola.size(); i++) {
-            if (mensola.get(i).autore.equalsIgnoreCase(autore) && mensola.get(i).titolo.equalsIgnoreCase(titolo)) {
-                mensola.get(i).pagine = Integer.parseInt(sc.nextLine());
+        for (Libro libro : mensola) {
+            if (libro.autore.equalsIgnoreCase(autore) && libro.titolo.equalsIgnoreCase(titolo)) {
+                libro.pagine = Integer.parseInt(sc.nextLine());
                 return true;
             }
         }
         return false;
     }
 
-    public static ArrayList<Libro> visualizzaLibroPerPrezzo(ArrayList<Libro> mensola, double prezzo) {
-        ArrayList<Libro> =new ArrayList<>();
-        for (int i = 0; i < mensola.size(); i++) {
-            if (mensola.get(i).PREZZOPAGINA * mensola.get(i).pagine == prezzo) {
+    public static void visualizzaLibriPrecedenti(ArrayList<Libro> mensola, int index) {
+        for (int i = index; i >= 0; i--) { // i>= 0, perchè senza questo il for continua anche nei numeri negativi
+            System.out.println(mensola.get(i).formattaDati());
+        }
+    }
 
-            }
+    public static void visualizzaLibriSuccessivi(ArrayList<Libro> mensola, int index) {
+        for (int i = index; i < mensola.size(); i++) {
+            System.out.println(mensola.get(i).formattaDati());
         }
     }
 }

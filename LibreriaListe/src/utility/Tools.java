@@ -1,11 +1,16 @@
 package utility;
+
 import java.util.Scanner;
+
 public class Tools {
     /*public static void main(String[] args) {
 
     }*/
-    private Tools()
-    {}; //impedisce di istanziare la classe
+    private Tools() {
+    }
+
+    ; //impedisce di istanziare la classe
+
     public static void clrScr() {
         try {
             new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();

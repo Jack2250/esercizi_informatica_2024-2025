@@ -11,7 +11,7 @@ import mensola.Genere;
 import static utility.Tools.*;
 
 public class FrontEnd {
-        public static Libro LeggiLibro(Scanner tastiera, String autore, String titolo) {
+    public static Libro LeggiLibro(Scanner tastiera, String autore, String titolo) {
         Libro l = new Libro();
         l.autore = autore;
         l.titolo = titolo;
