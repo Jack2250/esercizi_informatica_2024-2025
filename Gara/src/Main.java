@@ -1,10 +1,17 @@
+import FrontScreen.FrontEnd;
+
 public class Main {
     public static void main(String[] args) {
         try {
-            Pilota p1 = new Pilota("Mario", "Andretti", "America");
-            Pilota p2 = new Pilota("Michael", "Schumacher", "Tedesco");
+            // Crea un'istanza della classe FrontEnd, che gestisce l'interfaccia utente
+            FrontEnd frontEnd = new FrontEnd();
+
+            // Chiama il metodo menu() per avviare il menu principale
+            frontEnd.menu();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            // Gestisce qualsiasi eccezione che possa verificarsi durante l'esecuzione
+            // Stampa il messaggio dell'eccezione per capire il tipo di errore
+            System.out.println("Errore: " + e.getMessage());
         }
     }
 }
