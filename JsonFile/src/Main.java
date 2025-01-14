@@ -2,8 +2,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
@@ -25,6 +27,16 @@ public class Main {
         //System.out.println(jsonContent);
         try {
             Files.write(Paths.get("persone.json"), jsonContent.getBytes());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        //DESERIALIZZAZIONE DELLA COLLEZIONE PERSONE SU FILE IN FORMATO JSON
+        try {
+            byte[] jsonData = Files.readAllBytes(Path.of("persone.json"));
+            Persona[] collezione = tgson.fromJson(new String(jsonData), Persona[].class);
+            ArrayList<Persona> archivio = new ArrayList<>(Arrays.asList(collezione));
+            System.out.println(archivio);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
