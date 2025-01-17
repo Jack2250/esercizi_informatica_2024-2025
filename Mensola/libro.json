@@ -1,0 +1,13 @@
+{
+  "numeroLibri": 1,
+  "maxLibri": 3,
+  "mensola": [
+    {
+      "autore": "ds",
+      "titolo": "s",
+      "nPagine": 2,
+      "costoPagine": 0.05,
+      "tipo": "MANUALE"
+    }
+  ]
+}

@@ -1,10 +1,13 @@
-import backEnd.Genere;
-import backEnd.Libro;
 import backEnd.Mensola;
 import frontEnd.Tools;
 
 import static frontEnd.Tools.*;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class Main {
@@ -15,7 +18,7 @@ public class Main {
         boolean soluzioni = false;
         Mensola libreria = new Mensola(3);
 
-        String[] opzioni = {"---LIBRERIA---", "1. Inserimento", "2. Visualizzazione", "3. Ricerca", "4. Cancellazione", "5. Fine"};
+        String[] opzioni = {"---LIBRERIA---", "1. Inserimento", "2. Visualizzazione", "3. Ricerca", "4. Cancellazione", "5. JSON", "6. Fine"};
         do {
             clrScr();
             int scelta = Menu(opzioni, tastiera);
@@ -71,7 +74,19 @@ public class Main {
                         System.out.println("La mensola è vuota");
                     }
                 }
+
                 case 5 -> {
+                    try {
+                        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                        String json = gson.toJson(libreria);
+                        Files.write(Paths.get("libro.json"), json.getBytes());
+                        System.out.println("Dati salvati");
+                    } catch (Exception e) {
+                        System.out.println("Errore durante il salvataggio: " + e.getMessage());
+                    }
+                }
+
+                case 6 -> {
                     System.out.println("Fine");
                     uscita = true;
                 }
