@@ -15,6 +15,10 @@ public class Main {
         persone.add(p3);
 
         scriviPersona(persone, "persone.csv");
+
+        ArrayList<Persona> nuovoArchivio = leggiPersona("persone.csv");
+        System.out.println(nuovoArchivio);
+        leggiPersona("persone.csv");
     }
 
     public static void scriviPersona(ArrayList<Persona> archivio, String fileName) {
