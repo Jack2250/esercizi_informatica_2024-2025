@@ -1,6 +1,13 @@
 package backEnd;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Mensola {
@@ -83,4 +90,24 @@ public class Mensola {
         return mensola.isEmpty();
     }
 
+    public void salvaFile(String nomeFile) throws Exception {
+        Gson json = new GsonBuilder().setPrettyPrinting().create();
+        String jsonContent = json.toJson(mensola);
+        try {
+            Files.write(Paths.get(nomeFile), jsonContent.getBytes());
+        } catch (Exception e) {
+            throw new Exception(e);
+        }
+    }
+
+    public void leggiFile(String nomeFile) throws Exception {
+        try {
+            byte[] jsonData = Files.readAllBytes(Path.of(nomeFile));
+            Gson json = new GsonBuilder().setPrettyPrinting().create();
+            Libro[] collezione = json.fromJson(new String(jsonData), Libro[].class);
+            mensola = new ArrayList<>(Arrays.asList(collezione));
+        } catch (Exception e) {
+            throw new Exception(e);
+        }
+    }
 }

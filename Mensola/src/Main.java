@@ -18,7 +18,7 @@ public class Main {
         boolean soluzioni = false;
         Mensola libreria = new Mensola(3);
 
-        String[] opzioni = {"---LIBRERIA---", "1. Inserimento", "2. Visualizzazione", "3. Ricerca", "4. Cancellazione", "5. JSON", "6. Fine"};
+        String[] opzioni = {"---LIBRERIA---", "1. Inserimento", "2. Visualizzazione", "3. Ricerca", "4. Cancellazione", "5. Salva su file", "6. Leggi da file", "7. Fine"};
         do {
             clrScr();
             int scelta = Menu(opzioni, tastiera);
@@ -77,9 +77,9 @@ public class Main {
 
                 case 5 -> {
                     try {
-                        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-                        String json = gson.toJson(libreria);
-                        Files.write(Paths.get("libro.json"), json.getBytes());
+                        System.out.println("Inserisci il nome del file su cui salvare i dati");
+                        String nomeFile = tastiera.nextLine();
+                        libreria.salvaFile(nomeFile);
                         System.out.println("Dati salvati");
                     } catch (Exception e) {
                         System.out.println("Errore durante il salvataggio: " + e.getMessage());
@@ -87,6 +87,16 @@ public class Main {
                 }
 
                 case 6 -> {
+                    try {
+                        System.out.println("Inserisci il nome del file da cui leggere i dati");
+                        String nomeFile = tastiera.nextLine();
+                        libreria.leggiFile(nomeFile);
+                        System.out.println("Dati letti con successo");
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+                }
+                case 7 -> {
                     System.out.println("Fine");
                     uscita = true;
                 }
