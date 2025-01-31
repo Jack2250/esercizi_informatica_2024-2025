@@ -1,7 +1,7 @@
 public class Automobile extends Veicolo {
     private int nPorte;
 
-    public Automobile(String marca, String modello, double prezzo, int nPorte) {
+    public Automobile(String marca, String modello, int prezzo, int nPorte) {
         super(marca, modello, prezzo);
         this.nPorte = nPorte;
     }
@@ -12,6 +12,6 @@ public class Automobile extends Veicolo {
 
     @Override
     public String toString() {
-        return super.toString() + String.format("%d", nPorte);
+        return String.format(super.toString() + " %d", nPorte);
     }
 }

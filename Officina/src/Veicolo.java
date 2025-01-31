@@ -1,9 +1,9 @@
 public class Veicolo {
-    private String marca;
+    private final String marca;
     private String modello;
-    private double prezzo;
+    private int prezzo;
 
-    public Veicolo(String marca, String modello, double prezzo) {
+    public Veicolo(String marca, String modello, int prezzo) {
         this.marca = marca;
         this.modello = modello;
         this.prezzo = prezzo;
@@ -17,24 +17,22 @@ public class Veicolo {
         return modello;
     }
 
-    public double getPrezzo() {
+    public int getPrezzo() {
         return prezzo;
     }
 
-    public void setPrezzo(double prezzo) {
+    public void setPrezzo(int prezzo) {
         this.prezzo = prezzo;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof Veicolo) {
-            return ((Veicolo) obj).marca.equals(this.marca) && ((Veicolo) obj).modello.equals(this.modello);
-        }
-        return false;
+        Veicolo v = (Veicolo) obj;
+        return this.marca.equals(v.marca) && this.modello.equals(v.modello);
     }
 
     @Override
     public String toString() {
-        return String.format("%s,%s,%.2f", marca, modello, prezzo);
+        return String.format("Marca: %s, Modello: %s, Prezzo: %d", marca, modello, prezzo);
     }
 }
