@@ -10,6 +10,37 @@ public class PcPortatili {
         this.altezza = altezza;
         this.larghezza = larghezza;
         this.profondita = profondita;
-        //Calcolo dimensione video
+        this.dimensioneVideo = dimensioneVideo;
+    }
+
+    public double getPeso() {
+        return peso;
+    }
+
+    public double getDimensioneVideo() {
+        return dimensioneVideo;
+    }
+
+    public double getProfondita() {
+        return profondita;
+    }
+
+    public double getLarghezza() {
+        return larghezza;
+    }
+
+    public double getAltezza() {
+        return altezza;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(String.valueOf(peso), altezza, profondita, larghezza, dimensioneVideo);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof PcPortatili that)) return false;
+        return Double.compare(peso, that.peso) == 0 && Double.compare(dimensioneVideo, that.dimensioneVideo) == 0;
     }
 }

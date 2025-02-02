@@ -23,4 +23,9 @@ public class Server extends PcFissi {
     public boolean isDischiRAID() {
         return dischiRAID;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + String.format(String.valueOf(numeroProcessori), dischiRAID);
+    }
 }

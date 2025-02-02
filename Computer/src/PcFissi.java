@@ -1,5 +1,6 @@
 import static utility.Tools.*;
 
+import java.util.Objects;
 import java.util.Scanner;
 
 public class PcFissi {
@@ -77,5 +78,16 @@ public class PcFissi {
                 tipoContenitore = Contenitore.PICCOLO;
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        return String.format(tipoProcessore, memoriaRAM, memoriaMassa, marca, modello, sistemaOperativo, tipoContenitore);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof PcFissi pcFissi)) return false;
+        return Objects.equals(marca, pcFissi.marca) && Objects.equals(modello, pcFissi.modello);
     }
 }

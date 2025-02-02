@@ -13,4 +13,9 @@ public class Desktop extends PcFissi {
     public void setSchedaVideo(String schedaVideo) {
         this.schedaVideo = schedaVideo;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + String.format(schedaVideo);
+    }
 }
