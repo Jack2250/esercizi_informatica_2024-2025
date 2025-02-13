@@ -1,4 +1,6 @@
-public class Persona {
+import java.util.Objects;
+
+public class Persona implements Cloneable {
     protected String nome;
     protected String cognome;
     protected int eta;
@@ -6,13 +8,7 @@ public class Persona {
     protected String colorePreferito;
     protected String squadraDelCuore;
 
-    public Persona(String nome, String cognome, int eta, String luogoDiNascita, String colorePreferito, String squadraDelCuore) {
-        this.nome = nome;
-        this.cognome = cognome;
-        this.eta = eta;
-        this.luogoDiNascita = luogoDiNascita;
-        this.colorePreferito = colorePreferito;
-        this.squadraDelCuore = squadraDelCuore;
+    Persona() {
     }
 
     public String getNome() {
@@ -51,11 +47,32 @@ public class Persona {
         this.squadraDelCuore = squadraDelCuore;
     }
 
+    public Persona(String nome, String cognome, int eta, String luogoDiNascita, String colorePreferito, String squadraDelCuore) {
+        this.nome = nome;
+        this.cognome = cognome;
+        this.eta = eta;
+        this.luogoDiNascita = luogoDiNascita;
+        this.colorePreferito = colorePreferito;
+        this.squadraDelCuore = squadraDelCuore;
+    }
+
     public String presentazione() {
-        return String.format("Ciao sono %s", nome);
+        return String.format(" Ciao sono una persona e il mio nome è %s, il mio colore preferito è %s", nome, colorePreferito);
     }
 
     public String metodoGenerico() {
         return "Io sono il metodo generico di persona";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Persona persona)) return false;
+        return nome.equals(persona.nome);
+    }
+
+    @Override
+    protected Persona clone() throws CloneNotSupportedException {
+        return (Persona) super.clone();
     }
 }

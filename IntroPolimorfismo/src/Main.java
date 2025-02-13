@@ -1,16 +1,23 @@
 public class Main {
     public static void main(String[] args) {
-        Studente s1 = new Studente("Francesco", "Bazaj", 33, "RO", "Rosso", "Milan");
-        Docente d1 = new Docente("Francesco", "Bazaj", 33, "RO", "Rosso", "Milan");
-        Studente s2 = new Studente("Francesco", "Bazaj", 33, "RO", "Rosso", "Milan");
+        Docente d1 = new Docente("Fabio", "Cucu", 756, "Napoli", "Marrone", "Napoli");
+        Studente s1 = new Studente("Bazaj", "Francesco", 33, "Napoli", "Nero", "Milan");
+        Studente s2 = new Studente("Riccardo", "Gianesella", 33, "Napoli", "Nero", "Milan");
         Teatro t = new Teatro();
         try {
+            t.entrataTeatro(d1);
             t.entrataTeatro(s1);
             t.entrataTeatro(s2);
-            t.entrataTeatro(d1);
             t.stampaAVideo();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+        //Con clone rispettiamo l'incapsulamento
+        s1.setColorePreferito("giallo");
+        System.out.println(s1.getColorePreferito()); //Viene infranto il principio di incapsulamento
+        System.out.println("****");
+        t.stampaAVideo();
+        Libro l = new Libro("1", "1");
+        Studente s4F = new Studente("nome4F", "cognome4F", 17, "Rovigo", "Nero", "Italia", l);
     }
 }
