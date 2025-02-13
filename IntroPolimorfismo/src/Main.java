@@ -17,7 +17,14 @@ public class Main {
         System.out.println(s1.getColorePreferito()); //Viene infranto il principio di incapsulamento
         System.out.println("****");
         t.stampaAVideo();
+        //Con clone non rispettiamo l'incapsulamento
         Libro l = new Libro("1", "1");
         Studente s4F = new Studente("nome4F", "cognome4F", 17, "Rovigo", "Nero", "Italia", l);
+        try {
+            t.entrataTeatro(s4F);
+            t.stampaAVideo();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }
