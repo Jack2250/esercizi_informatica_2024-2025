@@ -3,35 +3,22 @@ import java.util.Random;
 public class Dado {
     private int nFacce;
     private int valFaccia;
-    private Random valLancio;
+    private Random random;
 
     public Dado(int nFacce) {
         this.nFacce = nFacce;
-    }
-
-    public void setnFacce(int nFacce) {
-        this.nFacce = nFacce;
-    }
-
-    public void setValFaccia(int valFaccia) {
-        this.valFaccia = valFaccia;
-    }
-
-
-    public int getnFacce() {
-        return nFacce;
+        this.random = new Random();
     }
 
     public int getValFaccia() {
         return valFaccia;
     }
 
-    public Random getValLancio() {
-        return valLancio;
+    public void lancia() {
+        valFaccia = random.nextInt(nFacce) + 1;
     }
 
-    public void lancia() {
-        valLancio = new Random();
-        valFaccia = valLancio.nextInt(1, nFacce);
+    public void reset() {
+        valFaccia = 0;
     }
 }

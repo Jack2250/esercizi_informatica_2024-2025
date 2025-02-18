@@ -1,6 +1,6 @@
 public class Giocatore {
     private String nome;
-    private int vittorie;
+    private int vittorie = 0;
 
     public Giocatore(String nome) {
         this.nome = nome;
@@ -14,7 +14,11 @@ public class Giocatore {
         return vittorie;
     }
 
-    public void setVittorie(int vittorie) {
-        this.vittorie = vittorie;
+    public void incrementaVittorie() {
+        this.vittorie++;
+    }
+
+    public void resetVittorie() {
+        this.vittorie = 0;
     }
 }
