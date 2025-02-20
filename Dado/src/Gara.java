@@ -2,6 +2,8 @@ public class Gara {
     public void round(Giocatore g1, Giocatore g2, Dado d1, Dado d2) {
         d1.lancia();
         d2.lancia();
+        System.out.println(d1.getValFaccia());
+        System.out.println(d2.getValFaccia());
         gameWin(g1, g2, d1, d2);
     }
 
