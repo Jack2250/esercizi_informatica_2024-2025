@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class Dado {
+public class Dado implements Comparable<Dado> {
     private int nFacce;
     private int valFaccia;
     private Random random;
@@ -20,5 +20,10 @@ public class Dado {
 
     public void reset() {
         valFaccia = 0;
+    }
+
+    @Override
+    public int compareTo(Dado d) {
+        return Integer.compare(this.valFaccia, d.valFaccia);
     }
 }

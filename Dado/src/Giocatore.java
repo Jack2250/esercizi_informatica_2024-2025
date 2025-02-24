@@ -1,4 +1,4 @@
-public class Giocatore {
+public class Giocatore implements Comparable<Giocatore> {
     private String nome;
     private int vittorie = 0;
 
@@ -20,5 +20,10 @@ public class Giocatore {
 
     public void resetVittorie() {
         this.vittorie = 0;
+    }
+
+    @Override
+    public int compareTo(Giocatore g) {
+        return Integer.compare(this.vittorie, g.vittorie);
     }
 }
