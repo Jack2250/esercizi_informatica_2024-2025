@@ -20,15 +20,22 @@ public class Main {
         Dado d2 = new Dado(nFacceDado);
         Gara gara = new Gara();
 
-        int roundCorrente = 0;
-        while (!gara.fineGara(roundCorrente, roundTotali)) {
-            System.out.println("Round " + (roundCorrente + 1));
-            gara.round(g1, g2, d1, d2);
-            roundCorrente++;
+        try {
+            System.out.println("1-Partita base 2-Partita avanzata");
+            int scelta = sc.nextInt();
+            System.out.println(giocaPartita(scelta, gara, g1, g2, d1, d2, roundTotali));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
+    }
 
-        System.out.println(g1.getNome() + ": " + g1.getVittorie() + " vittorie");
-        System.out.println(g2.getNome() + ": " + g2.getVittorie() + " vittorie");
-        System.out.println(gara.winner(g1, g2));
+    public static String giocaPartita(int scelta, Gara g, Giocatore g1, Giocatore g2, Dado d1, Dado d2, int roundTotali) throws Exception {
+        if (scelta == 1) {
+            return g.partitaBase(g1, g2, d1, d2, roundTotali);
+        } else if (scelta == 2) {
+            return g.partitaAvanzata(g1, g2, d1, d2, roundTotali);
+        } else {
+            throw new Exception();
+        }
     }
 }
