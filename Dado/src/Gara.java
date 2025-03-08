@@ -1,6 +1,9 @@
-class Gara {
+public class Gara {
     private int vittorieConsecutiveg1 = 0;
     private int vittorieConsecutiveg2 = 0;
+
+    public Gara() {
+    }
 
     public void roundBase(Giocatore g1, Giocatore g2, Dado d1, Dado d2) {
         d1.lancia();
@@ -15,7 +18,7 @@ class Gara {
         d2.lancia();
         System.out.println(d1.getValFaccia());
         System.out.println(d2.getValFaccia());
-        gameWinBonus(g1, g2, d1, d2, vittorieConsecutiveg1, vittorieConsecutiveg2);
+        gameWinBonus(g1, g2, d1, d2);
     }
 
     private void gameWin(Giocatore g1, Giocatore g2, Dado d1, Dado d2) {
@@ -33,27 +36,27 @@ class Gara {
         }
     }
 
-    private void gameWinBonus(Giocatore g1, Giocatore g2, Dado d1, Dado d2, int vittorieConsecutiveg1, int vittorieConsecutiveg2) {
+    private void gameWinBonus(Giocatore g1, Giocatore g2, Dado d1, Dado d2) {
         int confronto = d1.compareTo(d2);
 
         if (confronto > 0) {
             g1.incrementaVittorie();
-            ++vittorieConsecutiveg1;
+            vittorieConsecutiveg1++;
             vittorieConsecutiveg2 = 0;
             if (vittorieConsecutiveg1 == 3) {
                 g1.incrementaVittorie();
                 vittorieConsecutiveg1 = 0;
-                System.out.println("Bonus assegnato a" + g1.getNome());
+                System.out.println("Bonus assegnato a " + g1.getNome());
             }
             System.out.println(g1.getNome() + " vince il round!");
         } else if (confronto < 0) {
             g2.incrementaVittorie();
             vittorieConsecutiveg1 = 0;
-            ++vittorieConsecutiveg2;
+            vittorieConsecutiveg2++;
             if (vittorieConsecutiveg2 == 3) {
                 g2.incrementaVittorie();
                 vittorieConsecutiveg2 = 0;
-                System.out.println("Bonus assegnato a" + g2.getNome());
+                System.out.println("Bonus assegnato a " + g2.getNome());
             }
             System.out.println(g2.getNome() + " vince il round!");
         } else {
