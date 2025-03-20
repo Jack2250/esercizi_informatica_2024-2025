@@ -18,6 +18,6 @@ public class Sfera extends Solido {
 
     @Override
     public String toString() {
-        return super.toString() + String.format("Sono una sfera, la mia superficie è %.2f e il mio volume è %.2f", superficie(), volume());
+        return super.toString() + String.format(" Sono una sfera, la mia superficie è %.2f e il mio volume è %.2f", superficie(), volume());
     }
 }
