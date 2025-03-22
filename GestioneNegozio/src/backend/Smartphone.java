@@ -1,6 +1,6 @@
 package backend;
 
-public class Smartphone extends ProdottoElettronico {
+public class Smartphone extends ProdottoElettronico{
     private String modello;
     private int memoria;
 
@@ -20,11 +20,6 @@ public class Smartphone extends ProdottoElettronico {
 
     @Override
     public String toString() {
-        return super.toString() + String.format("Modello %s, Memoria %d", modello, memoria);
-    }
-
-    @Override
-    public Smartphone clone() throws CloneNotSupportedException {
-        return (Smartphone) super.clone();
+        return super.toString() + String.format(" Modello: %s Memoria: %s", modello, memoria);
     }
 }

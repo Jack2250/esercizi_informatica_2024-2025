@@ -52,20 +52,30 @@ public class Tools {
         return scelta;
     }
 
-    public static Smartphone leggiSmartphone() throws Exception {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Inserisci il codice del prodotto");
+    public static Smartphone leggiSmartphone(Scanner sc) {
+        System.out.print("Codice prodotto: ");
         String codice = sc.nextLine();
-        System.out.println("Inserisci la marca del prodotto");
+
+        System.out.print("Marca: ");
         String marca = sc.nextLine();
-        System.out.println("Inserisci il prezzo del prodotto");
-        double prezzo = Double.parseDouble(sc.nextLine());
-        System.out.println("Inserisci il modello del prodotto");
+
+        double prezzo = 0;
+        while (prezzo <= 0) {
+            System.out.print("Prezzo: ");
+            prezzo = Double.parseDouble(sc.nextLine());
+            if (prezzo <= 0) System.out.println("Il prezzo deve essere maggiore di zero.");
+        }
+
+        System.out.print("Modello: ");
         String modello = sc.nextLine();
-        System.out.println("Inserisci la memoria del prodotto");
-        int memoria = Integer.parseInt(sc.nextLine());
-        if (prezzo > 0 && memoria > 0)
-            return new Smartphone(codice, marca, prezzo, modello, memoria);
-        else throw new Exception("Il prezzo o la memoria sono minori di 0");
+
+        int memoria = 0;
+        while (memoria <= 0) {
+            System.out.print("Memoria in GB: ");
+            memoria = Integer.parseInt(sc.nextLine());
+            if (memoria <= 0) System.out.println("La memoria deve essere maggiore di zero.");
+        }
+
+        return new Smartphone(codice, marca, prezzo, modello, memoria);
     }
 }

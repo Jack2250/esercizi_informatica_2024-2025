@@ -1,7 +1,5 @@
 package backend;
 
-import java.util.Objects;
-
 public abstract class ProdottoElettronico {
     private String codiceProdotto;
     private String marca;
@@ -25,9 +23,13 @@ public abstract class ProdottoElettronico {
         return prezzo;
     }
 
+    public void setPrezzo(double prezzo) {
+        this.prezzo = prezzo;
+    }
+
     @Override
-    public String toString() {
-        return String.format("Codice prodotto %s, Marca %s, Prezzo %f", codiceProdotto, marca, prezzo);
+    protected ProdottoElettronico clone() throws CloneNotSupportedException {
+        return (ProdottoElettronico) super.clone();
     }
 
     @Override
@@ -40,7 +42,7 @@ public abstract class ProdottoElettronico {
     }
 
     @Override
-    protected ProdottoElettronico clone() throws CloneNotSupportedException {
-        return (ProdottoElettronico) super.clone();
+    public String toString() {
+        return String.format("Codice: %s Marca: %s Prezzo: %.2f", codiceProdotto, marca, prezzo);
     }
 }
